@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@GetMapping("/")
+@RequestMapping("/")
 public class DemoController {
+    @GetMapping
     public ResponseEntity<?> index(){
         return ResponseEntity.ok("Hello World!!!");
     }
