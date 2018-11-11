@@ -32,7 +32,7 @@ public class TweetServiceTest {
             ObjectMapper om = new ObjectMapper();
             TweetEntity tweetEntity = new TweetEntity();
             tweetEntity.setStatus(om.writeValueAsString(status));
-            tweetEntity.setTweetId(status.getId());
+            tweetEntity.setTweetId(status.getId()+"");
             tweetService.save(tweetEntity);
 
             System.out.println("Tweet = "+om.writeValueAsString(status));

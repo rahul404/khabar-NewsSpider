@@ -9,6 +9,7 @@ import twitter4j.Query;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Service
@@ -28,29 +29,32 @@ public class TwitterSpider implements Crawler {
             throw new IllegalArgumentException("cannot start a crawler after it has been stopped");
         }
         hasStarted = true;
-        while (!hasStopped){
-            try{
-                List<Query> queryList = tweetFetcherService
-                        .prepareQueryContaining(TwitterSourceConstants.NEWS_ACCOUNTS);
-                for (Query query : queryList ){
-                    try{
-                        List<Status> statusList = tweetFetcherService.searchTweets(query);
-                        for(Status status : statusList){
-                            tweetService.save(status);
+        Runnable runnable = () -> {
+            while (!hasStopped){
+                try{
+                    List<Query> queryList = tweetFetcherService
+                            .prepareQueryContaining(TwitterSourceConstants.NEWS_ACCOUNTS);
+                    for (Query query : queryList ){
+                        try{
+                            List<Status> statusList = tweetFetcherService.searchTweets(query);
+                            for(Status status : statusList){
+                                tweetService.checkAndSave(status);
+                            }
+                        }
+                        catch (TwitterException | JsonProcessingException | JDBCException e){
+                            System.out.println(e);
+                            e.printStackTrace();
                         }
                     }
-                    catch (TwitterException | JsonProcessingException | JDBCException e){
-                        System.out.println(e);
-                        e.printStackTrace();
-                    }
+                    Thread.sleep(interval);
                 }
-                Thread.sleep(interval);
+                catch (InterruptedException ie){
+                    System.out.println(ie);
+                    ie.printStackTrace();
+                }
             }
-            catch (InterruptedException ie){
-                System.out.println(ie);
-                ie.printStackTrace();
-            }
-        }
+        };
+        new Thread(runnable).start();
     }
 
     @Override

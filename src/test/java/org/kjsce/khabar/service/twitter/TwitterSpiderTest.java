@@ -15,7 +15,7 @@ public class TwitterSpiderTest {
     @Test
     public void shouldStartAndStop() throws Exception{
         twitterSpiderService.crawl();
-        Thread.sleep(1000*20);
+        Thread.sleep(1000*10);
         twitterSpiderService.stop();
     }
 }

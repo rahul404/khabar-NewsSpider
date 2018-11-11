@@ -20,24 +20,15 @@ public class TweetService {
     }
 
     public void save(Status status) throws JsonProcessingException {
-        TweetEntity tweetEntity = new TweetEntity();
-        String text = status.getText();
-        if(status.isRetweet()){
-            Status temp = status;
-            while(true){
-                temp = temp.getRetweetedStatus();
-                if(temp == null){
-                    break;
-                }
-                text = temp.getText();
-            }
-        }
-        tweetEntity.setTweetId(status.getId());
-        tweetEntity.setText(text);
-        tweetEntity.setStatus(new ObjectMapper().writeValueAsString(status));
+        TweetEntity tweetEntity = new TweetEntity.Builder().build(status);
         tweetEntityRepository.save(tweetEntity);
     }
-
+    public void checkAndSave(Status status) throws JsonProcessingException{
+        TweetEntity tweetEntity = new TweetEntity.Builder().build(status);
+        if(tweetEntityRepository.findByTweetId(tweetEntity.getTweetId()).orElse(null) == null){
+            tweetEntityRepository.save(tweetEntity);
+        }
+    }
     public Iterable<TweetEntity> findAll(){
         return tweetEntityRepository.findAll();
     }
