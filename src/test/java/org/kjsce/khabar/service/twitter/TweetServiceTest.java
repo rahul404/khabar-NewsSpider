@@ -29,10 +29,12 @@ public class TweetServiceTest {
         String op = resultTweets.get(0).getText();
         System.out.println("size = "+resultTweets.size());
         for(Status status : resultTweets){
-            TweetEntity tweetEntity = new TweetEntity();
-            tweetEntity.setStatus(status);
-            tweetService.save(tweetEntity);
             ObjectMapper om = new ObjectMapper();
+            TweetEntity tweetEntity = new TweetEntity();
+            tweetEntity.setStatus(om.writeValueAsString(status));
+            tweetEntity.setTweetId(status.getId());
+            tweetService.save(tweetEntity);
+
             System.out.println("Tweet = "+om.writeValueAsString(status));
             String tweet = status.getText().toLowerCase();
 //            Assert.assertTrue(tweet.contains(searchQuery) );
