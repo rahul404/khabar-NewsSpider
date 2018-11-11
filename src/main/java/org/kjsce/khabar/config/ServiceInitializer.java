@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ServiceInitializer {
     @Bean
-    CommandLineRunner init(TwitterSpider twitterSpider) {
+    CommandLineRunner initTwitterSpider(TwitterSpider twitterSpider) {
         return args -> {
             System.out.println("\n\n\n I was executed \n\n\n");
             twitterSpider.crawl();
