@@ -2,7 +2,9 @@ package org.kjsce.khabar.service.twitter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.hibernate.JDBCException;
+import org.kjsce.khabar.model.twitter.TweetEntity;
 import org.kjsce.khabar.service.Crawler;
+import org.kjsce.khabar.service.preprocessor.BagOfWordsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import twitter4j.Query;
@@ -18,10 +20,12 @@ public class TwitterSpider implements Crawler {
     private TweetFetcherService tweetFetcherService;
     @Autowired
     private TweetService tweetService;
+    @Autowired
+    private BagOfWordsService bagOfWordsService;
     private long interval = DEFAULT_INTERVAL;
     private boolean hasStarted  = false;
     private boolean hasStopped = false;
-    public static long DEFAULT_INTERVAL = 1000*10;
+    public static long DEFAULT_INTERVAL = 1000*65;
 
     @Override
     public void crawl(){
@@ -30,15 +34,18 @@ public class TwitterSpider implements Crawler {
         }
         hasStarted = true;
         Runnable runnable = () -> {
+            List<Query> queryList = tweetFetcherService
+                    .prepareQueryContaining(TwitterSourceConstants.NEWS_ACCOUNTS);
             while (!hasStopped){
                 try{
-                    List<Query> queryList = tweetFetcherService
-                            .prepareQueryContaining(TwitterSourceConstants.NEWS_ACCOUNTS);
                     for (Query query : queryList ){
                         try{
                             List<Status> statusList = tweetFetcherService.searchTweets(query);
                             for(Status status : statusList){
-                                tweetService.checkAndSave(status);
+                                TweetEntity tweetEntity = tweetService.create(status);
+                                if(bagOfWordsService.isRequiredTweet(tweetEntity.getText())){
+                                    tweetService.checkAndSave(status);
+                                }
                             }
                         }
                         catch (TwitterException | JsonProcessingException | JDBCException e){
