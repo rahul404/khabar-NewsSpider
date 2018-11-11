@@ -51,4 +51,12 @@ public class TweetService {
     public Iterable<TweetEntity> findAll(){
         return tweetEntityRepository.findAll();
     }
+    public TweetEntity create(Status status) {
+        try{
+            return new TweetEntity.Builder().build(status);
+        }
+        catch (JsonProcessingException e){
+            return null;
+        }
+    }
 }
