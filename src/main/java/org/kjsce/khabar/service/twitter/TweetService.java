@@ -15,7 +15,7 @@ public class TweetService {
     public void save(TweetEntity tweetEntity){
         tweetEntityRepository.save(tweetEntity);
     }
-    public List<TweetEntity> findAll(){
+    public Iterable<TweetEntity> findAll(){
         return tweetEntityRepository.findAll();
     }
 }
