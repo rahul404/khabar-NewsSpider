@@ -1,5 +1,6 @@
 package org.kjsce.khabar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jdk.nashorn.internal.objects.annotations.Getter;
 import jdk.nashorn.internal.objects.annotations.Setter;
 import org.springframework.data.annotation.*;
@@ -12,15 +13,19 @@ import java.util.Date;
 
 public abstract class BaseEntity {
 
+    @JsonIgnore
     @CreatedDate
     private Date createdDate;
 
+    @JsonIgnore
     @LastModifiedDate
     private Date updatedDate;
 
+    @JsonIgnore
     @Version
     private Long version;
 
+    @JsonIgnore
     private Boolean delete = Boolean.FALSE;
 
 
