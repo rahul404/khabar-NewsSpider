@@ -1,4 +1,4 @@
 package org.kjsce.khabar.service.twitter;
 
-public class TweetFetcher {
+public class TweetService {
 }

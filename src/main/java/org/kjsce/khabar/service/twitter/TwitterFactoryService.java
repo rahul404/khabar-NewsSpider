@@ -7,10 +7,10 @@ import twitter4j.conf.ConfigurationBuilder;
 
 @Service
 public class TwitterFactoryService {
-    public static final String CONSUMER_KEY = "rpRwvyYDer31Y7fo7p41LadAZ";
-    public static final String CONSUMER_SECRET= "Zn9Z3dK8OhEarWixGlONsRFiv0TwwMEQSlflacQo2cpZ4E4QXg ";
-    public static final String ACCESS_TOKEN = "746082684762394625-9TYAtfy6XGBiTjF7i4YP0OVo3VBMXDO";
-    public static final String ACCESS_TOKEN_SECRET= "C1Yz8DhzAC2fFKvriiqhMp8Wr2Yu210PkGlT5mp54iQJz";
+    public static final String CONSUMER_KEY = "wa1ZOeLwKF3gOqdxaaReX41dG";
+    public static final String CONSUMER_SECRET= "4WIxLps8saQAX6eOtO0prG9906bMG4giG58bGBjWugzKpimgXq";
+    public static final String ACCESS_TOKEN = "746082684762394625-ielmODgaYrfbSqBviEc7YLe9cpc6nrX";
+    public static final String ACCESS_TOKEN_SECRET= "ctKm8Sj7ucm1p80vvY7TKh0ViJtbkoDCYGui4dMWJUYPk";
 
     private final Twitter twitter ;
     TwitterFactoryService(){
@@ -19,7 +19,8 @@ public class TwitterFactoryService {
                 .setOAuthConsumerKey(CONSUMER_KEY)
                 .setOAuthConsumerSecret(CONSUMER_SECRET)
                 .setOAuthAccessToken(ACCESS_TOKEN)
-                .setOAuthAccessTokenSecret(ACCESS_TOKEN_SECRET);
+                .setOAuthAccessTokenSecret(ACCESS_TOKEN_SECRET)
+                .setTweetModeExtended(true);
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
     }

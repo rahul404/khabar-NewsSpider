@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.security.PermitAll;
 import javax.xml.ws.Response;
 
-@RestController
-@RequestMapping("")
+/*@RestController
+@RequestMapping("")*/
 public class DemoController {
     @Autowired
     TextClassifierServiceNaiveBayes naiveBayesService;
