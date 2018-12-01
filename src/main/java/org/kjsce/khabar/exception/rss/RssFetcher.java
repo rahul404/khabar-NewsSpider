@@ -1,4 +1,4 @@
-package org.kjsce.khabar.rss;
+package org.kjsce.khabar.exception.rss;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

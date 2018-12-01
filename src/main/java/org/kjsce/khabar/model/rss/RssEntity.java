@@ -1,4 +1,4 @@
-package org.kjsce.khabar.rss.models;
+package org.kjsce.khabar.model.rss;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.kjsce.khabar.model.BaseEntity;

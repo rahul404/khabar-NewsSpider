@@ -1,13 +1,13 @@
-package org.kjsce.khabar.rss;
+package org.kjsce.khabar.exception.rss;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
-import org.kjsce.khabar.rss.models.RssEntity;
-import org.kjsce.khabar.rss.models.RssItem;
-import org.kjsce.khabar.rss.services.RssEntityService;
-import org.kjsce.khabar.rss.services.RssItemService;
+import org.kjsce.khabar.model.rss.RssEntity;
+import org.kjsce.khabar.model.rss.RssItem;
+import org.kjsce.khabar.service.rss.RssEntityService;
+import org.kjsce.khabar.service.rss.RssItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

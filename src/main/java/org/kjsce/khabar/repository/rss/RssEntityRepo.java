@@ -1,6 +1,6 @@
-package org.kjsce.khabar.rss.repo;
+package org.kjsce.khabar.repository.rss;
 
-import org.kjsce.khabar.rss.models.RssEntity;
+import org.kjsce.khabar.model.rss.RssEntity;
 import org.springframework.data.repository.CrudRepository;
 
 public interface RssEntityRepo extends CrudRepository<RssEntity, Long> {

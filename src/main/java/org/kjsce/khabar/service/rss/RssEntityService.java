@@ -1,8 +1,8 @@
-package org.kjsce.khabar.rss.services;
+package org.kjsce.khabar.service.rss;
 
-import org.kjsce.khabar.rss.ResourceNotFoundException;
-import org.kjsce.khabar.rss.models.RssEntity;
-import org.kjsce.khabar.rss.repo.RssEntityRepo;
+import org.kjsce.khabar.exception.rss.ResourceNotFoundException;
+import org.kjsce.khabar.model.rss.RssEntity;
+import org.kjsce.khabar.repository.rss.RssEntityRepo;
 import org.kjsce.khabar.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

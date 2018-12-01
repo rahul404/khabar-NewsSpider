@@ -19,7 +19,7 @@ public class BagOfWordsService {
     private HashSet<String> stopWordSet = new HashSet<>();
     public BagOfWordsService(){
         crimeSet.add("abuse");
-        crimeSet.add("assult");
+        crimeSet.add("assault");
         crimeSet.add("alert");
         crimeSet.add("bail");
         crimeSet.add("break");
