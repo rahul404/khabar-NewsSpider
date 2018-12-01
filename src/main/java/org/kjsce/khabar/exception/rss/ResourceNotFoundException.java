@@ -1,4 +1,4 @@
-package org.kjsce.khabar.rss;
+package org.kjsce.khabar.exception.rss;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

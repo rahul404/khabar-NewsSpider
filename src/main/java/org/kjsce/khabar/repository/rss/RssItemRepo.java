@@ -1,7 +1,7 @@
-package org.kjsce.khabar.rss.repo;
+package org.kjsce.khabar.repository.rss;
 
-import org.kjsce.khabar.rss.models.RssEntity;
-import org.kjsce.khabar.rss.models.RssItem;
+import org.kjsce.khabar.model.rss.RssEntity;
+import org.kjsce.khabar.model.rss.RssItem;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

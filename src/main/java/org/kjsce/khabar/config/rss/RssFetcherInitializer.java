@@ -1,6 +1,6 @@
-package org.kjsce.khabar.rss.config;
+package org.kjsce.khabar.config.rss;
 
-import org.kjsce.khabar.rss.RssFetcherThreadWrapper;
+import org.kjsce.khabar.exception.rss.RssFetcherThreadWrapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package org.kjsce.khabar.rss.models;
+package org.kjsce.khabar.model.rss;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
@@ -6,12 +6,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.kjsce.khabar.model.BaseEntity;
 import org.kjsce.khabar.utils.StringUtils;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 @EntityListeners(RssItem.RssItemEntityListener.class)
 @Entity

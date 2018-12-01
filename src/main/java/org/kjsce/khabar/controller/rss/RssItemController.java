@@ -1,7 +1,6 @@
-package org.kjsce.khabar.rss.controllers;
+package org.kjsce.khabar.controller.rss;
 
-import org.kjsce.khabar.rss.models.RssItem;
-import org.kjsce.khabar.rss.services.RssItemService;
+import org.kjsce.khabar.service.rss.RssItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
