@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.hibernate.JDBCException;
 import org.kjsce.khabar.model.twitter.TweetEntity;
 import org.kjsce.khabar.service.Crawler;
+import org.kjsce.khabar.service.classifier.TweetNewsIdentifier;
 import org.kjsce.khabar.service.preprocessor.BagOfWordsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ public class TwitterSpider implements Crawler {
     private TweetService tweetService;
     @Autowired
     private BagOfWordsService bagOfWordsService;
+    @Autowired
+    private TweetNewsIdentifier tweetNewsIdentifier;
     private long interval = DEFAULT_INTERVAL;
     private boolean hasStarted  = false;
     private boolean hasStopped = false;
@@ -43,7 +46,7 @@ public class TwitterSpider implements Crawler {
                             List<Status> statusList = tweetFetcherService.searchTweets(query);
                             for(Status status : statusList){
                                 TweetEntity tweetEntity = tweetService.create(status);
-                                if(bagOfWordsService.isRequiredTweet(tweetEntity.getText())){
+                                if(tweetNewsIdentifier.isNews(tweetEntity.getText())){
                                     tweetService.checkAndSave(status);
                                 }
                             }

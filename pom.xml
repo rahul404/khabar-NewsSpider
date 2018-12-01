@@ -115,6 +115,13 @@
             <version>2.6.1</version>
             <scope>compile</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.paralleldots/paralleldots -->
+        <dependency>
+            <groupId>com.paralleldots</groupId>
+            <artifactId>paralleldots</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
 
     </dependencies>
 
