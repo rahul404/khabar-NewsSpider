@@ -2,8 +2,10 @@ package org.kjsce.khabar.service.twitter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.hibernate.JDBCException;
+import org.kjsce.khabar.exception.InterServiceCallFailedException;
 import org.kjsce.khabar.model.twitter.TweetEntity;
 import org.kjsce.khabar.service.Crawler;
+import org.kjsce.khabar.service.classifier.TopicIdentifier;
 import org.kjsce.khabar.service.preprocessor.BagOfWordsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import twitter4j.Query;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 
+import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
@@ -21,7 +24,7 @@ public class TwitterSpider implements Crawler {
     @Autowired
     private TweetService tweetService;
     @Autowired
-    private BagOfWordsService bagOfWordsService;
+    private TopicIdentifier topicIdentifier;
     private long interval = DEFAULT_INTERVAL;
     private boolean hasStarted  = false;
     private boolean hasStopped = false;
@@ -43,12 +46,13 @@ public class TwitterSpider implements Crawler {
                             List<Status> statusList = tweetFetcherService.searchTweets(query);
                             for(Status status : statusList){
                                 TweetEntity tweetEntity = tweetService.create(status);
-                                if(bagOfWordsService.isRequiredTweet(tweetEntity.getText())){
+                                if(topicIdentifier.classify(tweetEntity.getText()) == "news"){
                                     tweetService.checkAndSave(status);
                                 }
                             }
                         }
-                        catch (TwitterException | JsonProcessingException | JDBCException e){
+                        catch (TwitterException | IOException | JDBCException |
+                                InterServiceCallFailedException e){
                             System.out.println(e);
                             e.printStackTrace();
                         }
