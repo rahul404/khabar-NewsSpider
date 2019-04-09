@@ -16,7 +16,8 @@ public class TopicIdentifier {
 
     private static String[] getArray(){
         String arr[] = {"news", "crime", "entertainment", "world news", "impact", "politics", "sports", "travel",
-                "tech", "religion", "science", "education", "arts and culture", "healthy living"};
+                "tech", "religion", "science", "education", "arts and culture", "healthy living", "calamity", "arts",
+                "culture", "health", "healthy", "disaster"};
         return arr;
     }
     public ClassifyResponse classifyUsingParallelDots(String sentence) throws InterServiceCallFailedException, IOException {
