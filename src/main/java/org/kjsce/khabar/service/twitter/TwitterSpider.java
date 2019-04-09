@@ -48,7 +48,7 @@ public class TwitterSpider implements Crawler {
                             for(Status status : statusList){
                                 TweetEntity tweetEntity = tweetService.create(status);
                                 ClassifyResponse classifyResponse = topicIdentifier.
-                                        classifyUsingTextRazor(tweetEntity.getText());
+                                        classifyUsingParallelDots(tweetEntity.getText());
                                 if(topicIdentifier.isNews(classifyResponse)){
                                     System.out.println("Tweet id = "+tweetEntity.getTweetId());
                                     System.out.println("Tweet text = "+tweetEntity.getText());
