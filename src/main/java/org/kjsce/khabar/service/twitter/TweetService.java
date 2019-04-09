@@ -5,16 +5,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.kjsce.khabar.exception.NoSuchTweetException;
 import org.kjsce.khabar.model.twitter.TweetEntity;
 import org.kjsce.khabar.repository.TweetEntityRepository;
+import org.kjsce.khabar.utils.client.CrudServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import twitter4j.Status;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
 public class TweetService {
     @Autowired
     private TweetEntityRepository tweetEntityRepository;
+
+    @Autowired
+    private CrudServiceClient crudServiceClient;
 
     public TweetEntity findById(Long id){
         TweetEntity tweetEntity = tweetEntityRepository.findById(id).orElse(null);
@@ -46,6 +51,12 @@ public class TweetService {
         TweetEntity tweetEntity = new TweetEntity.Builder().build(status);
         if(tweetEntityRepository.findByTweetId(tweetEntity.getTweetId()).orElse(null) == null){
             tweetEntityRepository.save(tweetEntity);
+            try{
+                System.out.println("saved = "+crudServiceClient.save(tweetEntity));
+            }
+            catch (IOException ioe){
+                System.out.println("error in storing tweet");
+            }
         }
     }
     public Iterable<TweetEntity> findAll(){
