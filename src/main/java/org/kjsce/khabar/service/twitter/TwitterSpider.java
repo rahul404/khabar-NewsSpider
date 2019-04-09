@@ -7,6 +7,7 @@ import org.kjsce.khabar.model.twitter.TweetEntity;
 import org.kjsce.khabar.service.Crawler;
 import org.kjsce.khabar.service.classifier.TopicIdentifier;
 import org.kjsce.khabar.service.preprocessor.BagOfWordsService;
+import org.kjsce.khabar.utils.client.ClassifyResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import twitter4j.Query;
@@ -46,7 +47,11 @@ public class TwitterSpider implements Crawler {
                             List<Status> statusList = tweetFetcherService.searchTweets(query);
                             for(Status status : statusList){
                                 TweetEntity tweetEntity = tweetService.create(status);
-                                if(topicIdentifier.classify(tweetEntity.getText()) == "news"){
+                                ClassifyResponse classifyResponse = topicIdentifier.
+                                        classifyUsingTextRazor(tweetEntity.getText());
+                                if(topicIdentifier.isNews(classifyResponse)){
+                                    System.out.println("Tweet id = "+tweetEntity.getTweetId());
+                                    System.out.println("Tweet text = "+tweetEntity.getText());
                                     tweetService.checkAndSave(status);
                                 }
                             }
