@@ -2,10 +2,12 @@ package org.kjsce.khabar.service.twitter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.kjsce.khabar.exception.InterServiceCallFailedException;
 import org.kjsce.khabar.exception.NoSuchTweetException;
 import org.kjsce.khabar.model.twitter.TweetEntity;
 import org.kjsce.khabar.repository.TweetEntityRepository;
 import org.kjsce.khabar.utils.client.CrudServiceClient;
+import org.kjsce.khabar.utils.client.LocationClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import twitter4j.Status;
@@ -20,6 +22,9 @@ public class TweetService {
 
     @Autowired
     private CrudServiceClient crudServiceClient;
+
+    @Autowired
+    private LocationClient locationClient;
 
     public TweetEntity findById(Long id){
         TweetEntity tweetEntity = tweetEntityRepository.findById(id).orElse(null);
@@ -52,10 +57,12 @@ public class TweetService {
         if(tweetEntityRepository.findByTweetId(tweetEntity.getTweetId()).orElse(null) == null){
             tweetEntityRepository.save(tweetEntity);
             try{
-                System.out.println("saved = "+crudServiceClient.save(tweetEntity));
+                List<String> locations = locationClient.getLocations(tweetEntity.getText());
+                System.out.println("saved = "+crudServiceClient.save(tweetEntity, locations));
             }
-            catch (IOException ioe){
+            catch (IOException | InterServiceCallFailedException e){
                 System.out.println("error in storing tweet");
+                e.printStackTrace();
             }
         }
     }
