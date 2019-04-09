@@ -63,9 +63,7 @@ public class TweetEntity extends BaseEntity {
                     text = temp.getText();
                 }
             }
-            System.out.println("Tweet id = "+status.getId()+" size = "+status.getId());
             tweetEntity.setTweetId(status.getId()+"");
-            System.out.println("Tweet text = "+text +" size = "+text.length());
             tweetEntity.setText(text);
             tweetEntity.setStatus(new ObjectMapper().writeValueAsString(status));
             return tweetEntity;
