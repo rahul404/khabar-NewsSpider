@@ -2,6 +2,7 @@ package org.kjsce.khabar.service.classifier;
 
 import org.kjsce.khabar.exception.InterServiceCallFailedException;
 import org.kjsce.khabar.utils.client.ClassifyResponse;
+import org.kjsce.khabar.utils.client.ParallelDotsClient;
 import org.kjsce.khabar.utils.client.TextRazorClient;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +19,12 @@ public class TopicIdentifier {
                 "tech", "religion", "science", "education", "arts and culture", "healthy living"};
         return arr;
     }
-    public ClassifyResponse classifyUsingTextRazor(String sentence) throws InterServiceCallFailedException, IOException {
-        TextRazorClient textRazorClient= new TextRazorClient();
-        return textRazorClient.classify(sentence);
+    public ClassifyResponse classifyUsingParallelDots(String sentence) throws InterServiceCallFailedException, IOException {
+        ParallelDotsClient parallelDotsClient = new ParallelDotsClient();
+        return parallelDotsClient.classify(sentence);
     }
 
-    public ClassifyResponse classifyUsingParallelDots(String sentence) throws InterServiceCallFailedException, IOException {
+    public ClassifyResponse classifyUsingTextRazor(String sentence) throws InterServiceCallFailedException, IOException {
         TextRazorClient textRazorClient= new TextRazorClient();
         return textRazorClient.classify(sentence);
     }
